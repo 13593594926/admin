@@ -15,7 +15,6 @@ router.beforeEach((to, form, next) => {
     next()
   }
   next()
-
 })
 new Vue({
   router,

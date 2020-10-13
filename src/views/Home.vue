@@ -64,13 +64,6 @@ export default {
   // 组件参数 接收来自父组件的数据
   props: [],
 
-  beforeRouterEnter(to, from, next) {
-    let token = sessionStorage.getItem("user_token")
-    if (token==null) {
-      next("/login");
-    }
-    next();
-  },
   // 局部注册的组件
   components: {},
   // 组件状态值
@@ -136,10 +129,12 @@ export default {
     },
     bread(path){
       this.deAct=path
-      localStorage.setItem('deAct',this.deAct)
+      localStorage.setItem('bread',this.deAct)
     }
   },
   created() {
+    this.deAct=localStorage.getItem('bread')
+    console.log(localStorage.getItem('bread'));
   },
   mounted() {
       this.getmenus();

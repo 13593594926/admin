@@ -96,7 +96,7 @@ export default {
         localStorage.removeItem("bread");
 
         this.$router.push("/home");
-        location.reload();
+        // location.reload();
         this.$message({
           type: "success",
           message: data.meta.msg,

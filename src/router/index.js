@@ -25,6 +25,13 @@ const routes = [{
     name: 'Home',
     redirect: '/home/index',
     component: () => import('../views/Home.vue'),
+    beforeEnter(to,from,next) {
+      if (sessionStorage.getItem('user_token')) {
+        next()
+      } else {
+        next('/login')
+      }
+    },
     children: [
       // 默认显示
       {
