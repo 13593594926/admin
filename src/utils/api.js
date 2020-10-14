@@ -52,3 +52,31 @@ export let delRole = data => axios.delete(`/roles/${data}`)
 export let queryList = data => gets(data)
 // 修改当前角色
 export let isEditLiseEd = data => axios.put(`/roles/${data.roleId}`, data)
+//所有权限列表
+export let getRights = data => gets(`/rights/tree`)
+// 数据统计
+export let report =data => gets('/reports/type/1')
+//所有权限列表
+export let getRight = data => gets(`/rights/list`)
+// 商品列表数据
+export let getGoods = data => gets('/goods',data)
+// 删除商品
+export let delGood = data => axios.delete(`/goods/${data}`)
+// 查询修改商品
+export let upGood = data => gets(`/goods/${data}`)
+// 确认修改商品
+export let updateGood = data => axios.put(`/goods/${data.goods_id}`,data)
+// 获取商品分类
+export let getCategories = data => gets(`/categories`)
+// 获取商品分类
+export let getOrders = data => gets(`/orders`,data)
+
+
+
+
+
+
+
+
+
+

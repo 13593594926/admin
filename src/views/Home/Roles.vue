@@ -86,7 +86,11 @@
         <el-table-column prop="roleDesc" label="角色描述"> </el-table-column>
         <el-table-column label="操作" width="300">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" icon="el-icon-edit" @click="isEditList(scope.row.id)"
+            <el-button
+              size="mini"
+              type="primary"
+              icon="el-icon-edit"
+              @click="isEditList(scope.row.id)"
               >修改</el-button
             >
             <el-button
@@ -96,7 +100,11 @@
               @click="delrole(scope.row.id)"
               >删除</el-button
             >
-            <el-button size="mini" type="warning" icon="el-icon-setting"
+            <el-button
+              size="mini"
+              type="warning"
+              icon="el-icon-setting"
+              @click="right = true"
               >分配权限</el-button
             >
           </template>
@@ -160,7 +168,21 @@
       >      
       <div slot="footer" class="dialog-footer">
                 <el-button @click="flag = false">取 消</el-button>
-                <el-button type="primary" @click="editList">确 定</el-button>       
+                <el-button type="primary" @click="editList">确 定</el-button>
+              
+      </div>
+    </el-dialog>
+    <!-- 分配权限 -->
+
+    <el-dialog title="分配权限" :visible.sync="right">
+      <el-tree :data="rights" ref="tree" show-checkbox node-key="id" default-expand-all>
+        <span class="custom-tree-node" slot-scope="{ node, data }">
+          <span >{{ data.authName }}</span>
+        </span>
+      </el-tree>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="right = false">取 消</el-button>
+        <el-button type="primary" @click="getCheckedKeys">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -175,6 +197,7 @@ import {
   delRole,
   queryList,
   isEditLiseEd,
+  getRights,
 } from "@/utils/api";
 export default {
   name: "",
@@ -208,11 +231,14 @@ export default {
           },
         ],
       },
+      right: false,
+      rights: [],
     };
   },
   created() {},
   mounted() {
     this.getRoles();
+    this.rightsAll();
   },
   methods: {
     async getRoles() {
@@ -275,7 +301,7 @@ export default {
     },
     // 查询当前数据
     async isEditList(id) {
-        this.flag=true
+      this.flag = true;
       let data = await queryList(`roles/${id}`);
       this.editForm = data.data;
       if (data.meta.status == 200) {
@@ -288,20 +314,32 @@ export default {
     editList(id) {
       this.flag = true;
       this.editPut();
-
-    }, // 修改
+    },
+    // 修改
     async editPut() {
       let { data } = await isEditLiseEd(this.editForm);
       if (data.meta.status == 200) {
         this.flag = false;
         this.$message({
-            type: "success",
+          type: "success",
           message: "修改成功",
         });
         this.getRoles();
       }
     },
-    
+
+    async rightsAll() {
+      let { data } = await getRights();
+      console.log(data);
+      this.rights = data;
+    },
+
+    getCheckedKeys() {
+      let arr=this.$refs.tree.getCheckedKeys();
+        console.log(arr);
+      this.right = false
+    },
+
   },
 };
 </script>

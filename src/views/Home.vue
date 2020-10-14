@@ -134,7 +134,6 @@ export default {
   },
   created() {
     this.deAct=localStorage.getItem('bread')
-    console.log(localStorage.getItem('bread'));
   },
   mounted() {
       this.getmenus();
