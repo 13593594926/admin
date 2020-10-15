@@ -116,7 +116,7 @@ export default {
     },
     async getList() {
       let { data } = await getOrders(this.from);
-      console.log(data.total);
+      // console.log(data.total);
       this.list = data.goods;
       this.total = data.total;
     },

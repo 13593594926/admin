@@ -175,9 +175,15 @@
     <!-- 分配权限 -->
 
     <el-dialog title="分配权限" :visible.sync="right">
-      <el-tree :data="rights" ref="tree" show-checkbox node-key="id" default-expand-all>
+      <el-tree
+        :data="rights"
+        ref="tree"
+        show-checkbox
+        node-key="id"
+        default-expand-all
+      >
         <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span >{{ data.authName }}</span>
+          <span>{{ data.authName }}</span>
         </span>
       </el-tree>
       <div slot="footer" class="dialog-footer">
@@ -282,7 +288,6 @@ export default {
       })
         .then(() => {
           this.dela(id);
-          this.getRoles();
         })
         .catch(() => {
           this.$message({
@@ -298,6 +303,7 @@ export default {
         type: "success",
         message: data.meta.msg,
       });
+      this.getRoles();
     },
     // 查询当前数据
     async isEditList(id) {
@@ -335,11 +341,10 @@ export default {
     },
 
     getCheckedKeys() {
-      let arr=this.$refs.tree.getCheckedKeys();
-        console.log(arr);
-      this.right = false
+      let arr = this.$refs.tree.getCheckedKeys();
+      console.log(arr);
+      this.right = false;
     },
-
   },
 };
 </script>

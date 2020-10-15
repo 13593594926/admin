@@ -1,5 +1,4 @@
 <template>
-    
   <div>
     <!-- 面包屑 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
